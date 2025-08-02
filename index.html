@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>secret</title>
+  <title>Angel</title>
   <style>
     body {
       margin: 0;
@@ -117,13 +117,13 @@
       transition: all 3s ease;
     }
 
-    /* Ring in hand */
+    /* Bigger ring near head (left side) */
     .ring {
-      width: 40px;
+      width: 60px; /* Bigger size */
       display: none;
       position: absolute;
-      bottom: 150px;
-      right: -20px;
+      top: 0px;      /* near head */
+      left: -50px;   /* left side of head */
     }
 
     /* Proposal text */
@@ -148,20 +148,20 @@
       transform: translate(-50%, 30px) scale(0.9);
     }
 
-    /* YES/NO Buttons */
+    /* YES/NO Buttons below text */
     .buttons {
       position: absolute;
-      bottom: 30%;
+      bottom: 40%; /* directly below proposal text */
       width: 100%;
       text-align: center;
       display: none;
     }
     .buttons button {
-      padding: 10px 20px;
+      padding: 8px 18px;
       margin: 0 15px;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
       background: #ff4d6d;
       color: white;
@@ -286,8 +286,8 @@
       buttons.style.display = "block";
     }, 10000);
 
-    // NO button moves randomly
-    noBtn.addEventListener("mouseover", () => {
+    // NO button jumps randomly on click (works on mobile too)
+    noBtn.addEventListener("click", () => {
       const x = Math.random() * 80 + 10; // 10vw - 90vw
       const y = Math.random() * 50 + 10; // 10vh - 60vh
       noBtn.style.position = "absolute";
