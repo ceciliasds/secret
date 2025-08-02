@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secret</title>
+  <title>secret</title>
   <style>
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(to bottom right, #d4af37, #c0c0c0); /* Gold & Silver */
+      background: linear-gradient(to bottom right, #d4af37, #c0c0c0);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -23,7 +23,7 @@
       height: 20px;
       background: red;
       transform: rotate(45deg);
-      bottom: -30px; /* Start from very bottom */
+      bottom: -30px;
       animation: floatHearts 6s linear infinite;
     }
 
@@ -108,7 +108,7 @@
 
     /* Girl closer to center */
     .girl {
-      left: 35%; /* closer to center */
+      left: 35%;
     }
 
     /* Boy starts at right */
@@ -117,14 +117,13 @@
       transition: all 3s ease;
     }
 
-    /* Ring image for proposal */
+    /* Ring in hand */
     .ring {
-      width: 60px;
+      width: 40px;
       display: none;
       position: absolute;
-      bottom: 180px;
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: 150px;
+      right: -20px;
     }
 
     /* Proposal text */
@@ -144,9 +143,58 @@
       opacity: 1;
     }
 
-    /* Kneeling effect for boy (move slightly down) */
+    /* Kneeling effect for boy */
     .kneel {
       transform: translate(-50%, 30px) scale(0.9);
+    }
+
+    /* YES/NO Buttons */
+    .buttons {
+      position: absolute;
+      bottom: 30%;
+      width: 100%;
+      text-align: center;
+      display: none;
+    }
+    .buttons button {
+      padding: 10px 20px;
+      margin: 0 15px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #ff4d6d;
+      color: white;
+      transition: 0.3s;
+    }
+    .buttons button:hover {
+      background: #d6336c;
+    }
+
+    /* Popup kiss */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.5s ease;
+      z-index: 1000;
+    }
+    .popup.show {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .popup img {
+      width: 100px;
+    }
+    .popup h2 {
+      font-size: 2rem;
+      margin: 15px 0 0;
+      color: #d6336c;
     }
   </style>
 </head>
@@ -173,13 +221,23 @@
         <div class="leg"></div>
         <div class="leg"></div>
       </div>
+      <img src="ring.jpg" alt="Ring" class="ring" id="ring">
     </div>
-
-    <!-- Ring -->
-    <img src="ring.jpg" alt="Ring" class="ring" id="ring">
 
     <!-- Proposal Text -->
     <div class="proposal-text" id="proposal-text">Will you marry me?</div>
+
+    <!-- Buttons -->
+    <div class="buttons" id="buttons">
+      <button id="yes-btn">YES</button>
+      <button id="no-btn">NO</button>
+    </div>
+  </div>
+
+  <!-- Kiss Popup -->
+  <div class="popup" id="kiss-popup">
+    <img src="kiss.png" alt="Kiss">
+    <h2>Happily Ever After! 💕</h2>
   </div>
 
   <script>
@@ -187,30 +245,24 @@
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
-
-      // Random horizontal position
       heart.style.left = Math.random() * 100 + "vw";
-
-      // Random size
-      const size = Math.random() * 15 + 10; // 10px to 25px
+      const size = Math.random() * 15 + 10;
       heart.style.width = size + "px";
       heart.style.height = size + "px";
-
-      // Random animation speed
-      heart.style.animationDuration = Math.random() * 3 + 4 + "s"; // 4s - 7s
-
+      heart.style.animationDuration = Math.random() * 3 + 4 + "s";
       document.body.appendChild(heart);
-
-      // Remove after animation
       setTimeout(() => heart.remove(), 7000);
     }
-
     setInterval(createHeart, 300);
 
     // Proposal animation
     const boy = document.getElementById('boy');
     const ring = document.getElementById('ring');
     const proposalText = document.getElementById('proposal-text');
+    const buttons = document.getElementById('buttons');
+    const kissPopup = document.getElementById('kiss-popup');
+    const noBtn = document.getElementById('no-btn');
+    const yesBtn = document.getElementById('yes-btn');
 
     // Step 1: Boy walks toward center
     setTimeout(() => {
@@ -228,6 +280,25 @@
     setTimeout(() => {
       proposalText.classList.add("show");
     }, 5000);
+
+    // Step 4: Show buttons after 5 more seconds
+    setTimeout(() => {
+      buttons.style.display = "block";
+    }, 10000);
+
+    // NO button moves randomly
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * 80 + 10; // 10vw - 90vw
+      const y = Math.random() * 50 + 10; // 10vh - 60vh
+      noBtn.style.position = "absolute";
+      noBtn.style.left = x + "vw";
+      noBtn.style.top = y + "vh";
+    });
+
+    // YES button triggers kiss popup
+    yesBtn.addEventListener("click", () => {
+      kissPopup.classList.add("show");
+    });
   </script>
 </body>
 </html>
