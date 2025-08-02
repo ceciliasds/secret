@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Proposal</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom right, #ffdee9, #b5fffc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    /* Floating hearts animation */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatHearts 6s linear infinite;
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      left: 10px;
+      top: 0;
+    }
+    @keyframes floatHearts {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-110vh) rotate(45deg); opacity: 0; }
+    }
+
+    /* Scene container */
+    .scene {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 20px;
+    }
+
+    /* Girl image */
+    .girl {
+      width: 150px;
+      bottom: 50px;
+      position: absolute;
+      left: 20px;
+      transition: all 2s ease;
+    }
+
+    /* Boy image walking */
+    .boy {
+      width: 150px;
+      bottom: 50px;
+      position: absolute;
+      right: 20px;
+      transition: all 3s ease;
+    }
+
+    /* Ring image for proposal */
+    .ring {
+      width: 60px;
+      display: none;
+      position: absolute;
+      bottom: 180px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Proposal text */
+    .proposal-text {
+      position: absolute;
+      bottom: 50%;
+      width: 100%;
+      text-align: center;
+      font-size: 3rem;
+      color: #d6336c;
+      opacity: 0;
+      font-family: 'Great Vibes', cursive;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+      transition: opacity 1.5s ease;
+    }
+    .proposal-text.show {
+      opacity: 1;
+    }
+
+    /* Kneeling animation (simulated by moving boy down) */
+    .kneel {
+      transform: translate(-50%, 30px) scale(0.9);
+    }
+  </style>
+</head>
+<body>
+  <!-- Scene -->
+  <div class="scene">
+    <!-- Girl Image -->
+    <img src="girl.jpg" alt="Girl" class="girl" id="girl">
+    <!-- Boy Image -->
+    <img src="boy.jpg" alt="Boy" class="boy" id="boy">
+    <!-- Ring -->
+    <img src="ring.jpg" alt="Ring" class="ring" id="ring">
+    <!-- Proposal Text -->
+    <div class="proposal-text" id="proposal-text">Will you marry me?</div>
+  </div>
+
+  <script>
+    // Floating hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.background = randomHeartColor();
+      heart.style.width = heart.style.height = Math.random() * 15 + 10 + "px";
+      heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+
+    function randomHeartColor() {
+      const colors = ["#ff4d6d", "#ff69b4", "#ff8fa3", "#ffb3c6"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    setInterval(createHeart, 400);
+
+    // Proposal animation
+    const boy = document.getElementById('boy');
+    const ring = document.getElementById('ring');
+    const proposalText = document.getElementById('proposal-text');
+
+    // Step 1: Boy walks toward center
+    setTimeout(() => {
+      boy.style.right = "50%";
+      boy.style.transform = "translateX(50%)"; // Center align
+    }, 1000);
+
+    // Step 2: Boy kneels and shows ring
+    setTimeout(() => {
+      boy.classList.add("kneel");
+      ring.style.display = "block";
+    }, 4000);
+
+    // Step 3: Show proposal text
+    setTimeout(() => {
+      proposalText.classList.add("show");
+    }, 5000);
+  </script>
+</body>
+</html>
