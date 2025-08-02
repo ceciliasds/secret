@@ -16,14 +16,17 @@
       font-family: 'Dancing Script', cursive;
     }
 
-    /* Floating red rose animation */
+    /* Floating rose (CSS shape) */
     .rose {
       position: absolute;
-      width: 30px;
-      height: 30px;
-      background-image: url('rose.png'); /* Replace with your rose image */
-      background-size: cover;
-      background-position: center;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+      box-shadow:
+        0 -5px 0 2px red,
+        5px 0 0 2px red,
+        -5px 0 0 2px red; /* Petal effect */
       animation: floatRoses 8s linear infinite;
     }
 
@@ -51,7 +54,7 @@
       text-align: center;
     }
 
-    /* Head (image) */
+    /* Head (image placeholder) */
     .head {
       width: 60px;
       height: 60px;
@@ -88,12 +91,12 @@
       background: black;
     }
 
-    /* Girl position (left) */
+    /* Girl closer to center */
     .girl {
-      left: 20px;
+      left: 35%; /* moved from 20px to middle-ish */
     }
 
-    /* Boy position (right, will animate) */
+    /* Boy starts at right */
     .boy {
       right: 20px;
       transition: all 3s ease;
@@ -170,7 +173,7 @@
       const rose = document.createElement("div");
       rose.classList.add("rose");
       rose.style.left = Math.random() * 100 + "vw";
-      rose.style.width = rose.style.height = Math.random() * 20 + 20 + "px";
+      rose.style.width = rose.style.height = Math.random() * 20 + 15 + "px";
       rose.style.animationDuration = Math.random() * 3 + 5 + "s";
       document.body.appendChild(rose);
       setTimeout(() => rose.remove(), 8000);
@@ -185,8 +188,8 @@
 
     // Step 1: Boy walks toward center
     setTimeout(() => {
-      boy.style.right = "50%";
-      boy.style.transform = "translateX(50%)"; // Center align
+      boy.style.right = "40%";
+      boy.style.transform = "translateX(50%)";
     }, 1000);
 
     // Step 2: Boy kneels and shows ring
