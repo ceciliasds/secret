@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wedding Proposal</title>
+  <title>Secret</title>
   <style>
     body {
       margin: 0;
@@ -16,23 +16,38 @@
       font-family: 'Dancing Script', cursive;
     }
 
-    /* Floating rose (CSS shape) */
-    .rose {
+    /* Floating heart shape */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      bottom: -30px; /* Start from very bottom */
+      animation: floatHearts 6s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
       position: absolute;
       width: 20px;
       height: 20px;
       background: red;
       border-radius: 50%;
-      box-shadow:
-        0 -5px 0 2px red,
-        5px 0 0 2px red,
-        -5px 0 0 2px red; /* Petal effect */
-      animation: floatRoses 8s linear infinite;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      left: 10px;
+      top: 0;
     }
 
-    @keyframes floatRoses {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+    @keyframes floatHearts {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-120vh) rotate(45deg); opacity: 0; }
     }
 
     /* Scene container */
@@ -93,7 +108,7 @@
 
     /* Girl closer to center */
     .girl {
-      left: 35%; /* moved from 20px to middle-ish */
+      left: 35%; /* closer to center */
     }
 
     /* Boy starts at right */
@@ -168,18 +183,29 @@
   </div>
 
   <script>
-    // Floating roses
-    function createRose() {
-      const rose = document.createElement("div");
-      rose.classList.add("rose");
-      rose.style.left = Math.random() * 100 + "vw";
-      rose.style.width = rose.style.height = Math.random() * 20 + 15 + "px";
-      rose.style.animationDuration = Math.random() * 3 + 5 + "s";
-      document.body.appendChild(rose);
-      setTimeout(() => rose.remove(), 8000);
+    // Floating hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+
+      // Random horizontal position
+      heart.style.left = Math.random() * 100 + "vw";
+
+      // Random size
+      const size = Math.random() * 15 + 10; // 10px to 25px
+      heart.style.width = size + "px";
+      heart.style.height = size + "px";
+
+      // Random animation speed
+      heart.style.animationDuration = Math.random() * 3 + 4 + "s"; // 4s - 7s
+
+      document.body.appendChild(heart);
+
+      // Remove after animation
+      setTimeout(() => heart.remove(), 7000);
     }
 
-    setInterval(createRose, 400);
+    setInterval(createHeart, 300);
 
     // Proposal animation
     const boy = document.getElementById('boy');
