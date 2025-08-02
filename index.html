@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Angel</title>
+  <title>Wedding Proposal</title>
   <style>
     body {
       margin: 0;
@@ -26,7 +26,6 @@
       bottom: -30px;
       animation: floatHearts 6s linear infinite;
     }
-
     .heart::before,
     .heart::after {
       content: '';
@@ -44,7 +43,6 @@
       left: 10px;
       top: 0;
     }
-
     @keyframes floatHearts {
       0% { transform: translateY(0) rotate(45deg); opacity: 1; }
       100% { transform: translateY(-120vh) rotate(45deg); opacity: 0; }
@@ -117,27 +115,30 @@
       transition: all 3s ease;
     }
 
-    /* Bigger ring near head (left side) */
+    /* Ring directly above head */
     .ring {
-      width: 60px; /* Bigger size */
+      width: 60px; /* bigger */
       display: none;
       position: absolute;
-      top: 0px;      /* near head */
-      left: -50px;   /* left side of head */
+      top: -70px; /* above head */
+      left: 50%;
+      transform: translateX(-50%);
     }
 
-    /* Proposal text */
+    /* Proposal text (fixed center for all screens) */
     .proposal-text {
       position: absolute;
-      bottom: 50%;
-      width: 100%;
+      top: 35%; /* higher so it's visible on mobile too */
+      left: 50%;
+      transform: translate(-50%, -50%);
       text-align: center;
-      font-size: 3rem;
+      font-size: 2.5rem;
       color: #b22222;
       opacity: 0;
       font-family: 'Great Vibes', cursive;
       text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
       transition: opacity 1.5s ease;
+      width: 90%;
     }
     .proposal-text.show {
       opacity: 1;
@@ -151,10 +152,11 @@
     /* YES/NO Buttons below text */
     .buttons {
       position: absolute;
-      bottom: 40%; /* directly below proposal text */
-      width: 100%;
-      text-align: center;
+      top: 45%; /* right below proposal text */
+      left: 50%;
+      transform: translateX(-50%);
       display: none;
+      text-align: center;
     }
     .buttons button {
       padding: 8px 18px;
