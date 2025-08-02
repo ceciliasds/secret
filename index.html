@@ -8,7 +8,7 @@
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(to bottom right, #ffdee9, #b5fffc);
+      background: linear-gradient(to bottom right, #d4af37, #c0c0c0); /* Gold & Silver */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,35 +16,20 @@
       font-family: 'Dancing Script', cursive;
     }
 
-    /* Floating hearts animation */
-    .heart {
+    /* Floating red rose animation */
+    .rose {
       position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      transform: rotate(45deg);
-      animation: floatHearts 6s linear infinite;
+      width: 30px;
+      height: 30px;
+      background-image: url('rose.png'); /* Replace with your rose image */
+      background-size: cover;
+      background-position: center;
+      animation: floatRoses 8s linear infinite;
     }
-    .heart::before,
-    .heart::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      border-radius: 50%;
-    }
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-    .heart::after {
-      left: 10px;
-      top: 0;
-    }
-    @keyframes floatHearts {
-      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-      100% { transform: translateY(-110vh) rotate(45deg); opacity: 0; }
+
+    @keyframes floatRoses {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
     }
 
     /* Scene container */
@@ -58,20 +43,58 @@
       padding: 0 20px;
     }
 
-    /* Girl image */
-    .girl {
-      width: 150px;
-      bottom: 50px;
+    /* Stickman container */
+    .stickman {
       position: absolute;
-      left: 20px;
-      transition: all 2s ease;
+      bottom: 50px;
+      width: 80px;
+      text-align: center;
     }
 
-    /* Boy image walking */
+    /* Head (image) */
+    .head {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+      background: #fff;
+    }
+
+    /* Stickman body parts */
+    .body-line {
+      width: 2px;
+      height: 50px;
+      background: black;
+      margin: 0 auto;
+    }
+    .arms {
+      width: 40px;
+      height: 2px;
+      background: black;
+      margin: 0 auto;
+      position: relative;
+      top: -25px;
+    }
+    .legs {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: -5px;
+    }
+    .leg {
+      width: 2px;
+      height: 30px;
+      background: black;
+    }
+
+    /* Girl position (left) */
+    .girl {
+      left: 20px;
+    }
+
+    /* Boy position (right, will animate) */
     .boy {
-      width: 150px;
-      bottom: 50px;
-      position: absolute;
       right: 20px;
       transition: all 3s ease;
     }
@@ -93,17 +116,17 @@
       width: 100%;
       text-align: center;
       font-size: 3rem;
-      color: #d6336c;
+      color: #b22222;
       opacity: 0;
       font-family: 'Great Vibes', cursive;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
       transition: opacity 1.5s ease;
     }
     .proposal-text.show {
       opacity: 1;
     }
 
-    /* Kneeling animation (simulated by moving boy down) */
+    /* Kneeling effect for boy (move slightly down) */
     .kneel {
       transform: translate(-50%, 30px) scale(0.9);
     }
@@ -112,35 +135,48 @@
 <body>
   <!-- Scene -->
   <div class="scene">
-    <!-- Girl Image -->
-    <img src="girl.jpg" alt="Girl" class="girl" id="girl">
-    <!-- Boy Image -->
-    <img src="boy.jpg" alt="Boy" class="boy" id="boy">
+    <!-- Girl Stickman -->
+    <div class="stickman girl" id="girl">
+      <img src="girl.jpg" alt="Girl" class="head">
+      <div class="body-line"></div>
+      <div class="arms"></div>
+      <div class="legs">
+        <div class="leg"></div>
+        <div class="leg"></div>
+      </div>
+    </div>
+
+    <!-- Boy Stickman -->
+    <div class="stickman boy" id="boy">
+      <img src="boy.jpg" alt="Boy" class="head">
+      <div class="body-line"></div>
+      <div class="arms"></div>
+      <div class="legs">
+        <div class="leg"></div>
+        <div class="leg"></div>
+      </div>
+    </div>
+
     <!-- Ring -->
     <img src="ring.jpg" alt="Ring" class="ring" id="ring">
+
     <!-- Proposal Text -->
     <div class="proposal-text" id="proposal-text">Will you marry me?</div>
   </div>
 
   <script>
-    // Floating hearts
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.background = randomHeartColor();
-      heart.style.width = heart.style.height = Math.random() * 15 + 10 + "px";
-      heart.style.animationDuration = Math.random() * 3 + 4 + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 7000);
+    // Floating roses
+    function createRose() {
+      const rose = document.createElement("div");
+      rose.classList.add("rose");
+      rose.style.left = Math.random() * 100 + "vw";
+      rose.style.width = rose.style.height = Math.random() * 20 + 20 + "px";
+      rose.style.animationDuration = Math.random() * 3 + 5 + "s";
+      document.body.appendChild(rose);
+      setTimeout(() => rose.remove(), 8000);
     }
 
-    function randomHeartColor() {
-      const colors = ["#ff4d6d", "#ff69b4", "#ff8fa3", "#ffb3c6"];
-      return colors[Math.floor(Math.random() * colors.length)];
-    }
-
-    setInterval(createHeart, 400);
+    setInterval(createRose, 400);
 
     // Proposal animation
     const boy = document.getElementById('boy');
